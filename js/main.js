@@ -100,9 +100,7 @@ class Frog {
 
             this.x -= this.game.clockTick * this.speed;
         }
-
     }
-
 }
 
 class BeardGuy {
@@ -118,12 +116,9 @@ class BeardGuy {
         this.isLeft = true;
     }
 
-
     draw(ctx){
 
-
       if(this.isLeft){
-
           this.animationLeft.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
       } else {
           this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
@@ -136,13 +131,11 @@ class BeardGuy {
         } else if (this.x > 700) {
             this.isLeft = true;
         }
-
         if (this.isLeft) {
             this.x -= this.game.clockTick * this.speed;
         } else {
             this.x += this.game.clockTick * this.speed;
         }
-
     }
 }
     class MainDude{
@@ -178,7 +171,6 @@ class BeardGuy {
         AM.getAsset('./img/main_dude.png'), 0, 640, 32, 64, 6, 0.167, 6, true));
       this.stateMachine.addState('attackRightDJ', new Animation(
         AM.getAsset('./img/main_dude.png'), 0, 704, 32, 64, 4, 0.25, 4, true));
-
     }
 
     draw(ctx){
@@ -197,13 +189,11 @@ class BeardGuy {
       } else {
         this.stateMachine.setState('idleDownDJ');
         this.stateMachine.draw(this.game.clockTick, ctx, this.x, this.y, 1);
-
-
-            }
+        }
     }
 
     update() {
-        /* Here we check to see if any buttons where pressed and if our character is in the world */
+       
         if (cursor.rightPressed) {
             this.x += this.game.clockTick * this.speed;
         } else if (cursor.leftPressed) {
@@ -232,25 +222,27 @@ class Skeleton{
         this.stateMachine = new StateMachine();
         this.stateMachine.addState('secondState', 
         new Animation(AM.getAsset('./img/skeleton.png'), 0, 65, 64, 64, 7, 0.1, 7, true, 1));
-        this.stateMachine.addState('walkLeft', new Animation(AM.getAsset('./img/skeleton2.png'), 0, 585, 64, 64, 7, 0.1, 7, true, 1));
-        this.stateMachine.addState('walkRight', new Animation(AM.getAsset('./img/skeleton2.png'), 0, 715, 64, 64, 7, 0.1, 7, true, 1));
-        this.stateMachine.addState('walkAway', new Animation(AM.getAsset('./img/skeleton2.png'), 0, 520, 64, 64, 7, 0.1, 7, true, 1));
-        this.stateMachine.addState('pushUp', new Animation(AM.getAsset('./img/skeleton2.png'), 0, 1300, 64, 64, 11, 0.1, 11 , true, 1));
-        this.stateMachine.addState('walkTowards', new Animation(AM.getAsset('./img/skeleton2.png'), 0, 650, 64, 64, 9, 0.1, 9 , true, 1));
+        this.stateMachine.addState('walkLeft',
+         new Animation(AM.getAsset('./img/skeleton2.png'), 0, 585, 64, 64, 7, 0.1, 7, true, 1));
+        this.stateMachine.addState('walkRight',
+         new Animation(AM.getAsset('./img/skeleton2.png'), 0, 715, 64, 64, 7, 0.1, 7, true, 1));
+        this.stateMachine.addState('walkAway', 
+        new Animation(AM.getAsset('./img/skeleton2.png'), 0, 520, 64, 64, 7, 0.1, 7, true, 1));
+        this.stateMachine.addState('pushUp',
+         new Animation(AM.getAsset('./img/skeleton2.png'), 0, 1300, 64, 64, 11, 0.1, 11 , true, 1));
+        this.stateMachine.addState('walkTowards', 
+        new Animation(AM.getAsset('./img/skeleton2.png'), 0, 650, 64, 64, 9, 0.1, 9 , true, 1));
         this.isLeft = false; 
         this.isRight = false;
         this.isAway = false;
         this.count = 0;
-        
     }
 
     update(){
-
         // this.stateMachine.setState('secondState');
         if(this.count < 50){
             this.stateMachine.setState('pushUp')
             this.count++;
-            
 
         } else if(this.x > 500 && this.y < 400){
             this.stateMachine.setState('walkTowards');
@@ -269,22 +261,17 @@ class Skeleton{
             this.y -= this.game.clockTick * this.speed;
             this.stateMachine.setState('walkAway');
             this.isLeft = false;
-            this.isAway = true;
-            
+            this.isAway = true;       
         } 
         //  if(this.y < 300){
         //     this.x += this.game.clockTick * this.speed;
 
-        // }
-        
-       
-        
+        // }       
     }
     draw(ctx){
        this.stateMachine.draw(this.game.clockTick, ctx, this.x, this.y);
     }
 }
-
 
 class Background{
     constructor(game, spritesheet) {
@@ -297,18 +284,14 @@ class Background{
     draw() {
         this.ctx.drawImage(this.spritesheet, this.x, this.y);
     }
-
     update(){}
 }
-
 
 AM.queueDownload("./img/mikethefrog2.png");
 AM.queueDownload("./img/background.png");
 AM.queueDownload("./img/beardguy2.png");
 AM.queueDownload('./img/main_dude.png');
 AM.queueDownload('./img/skeleton2.png');
-
-
 
 AM.downloadAll(function() {
   var canvas = document.getElementById("gameWorld");
