@@ -39,6 +39,11 @@ function keyDownHandler(e) { /* Handler for keyup events */
         case "KeyS":
             cursor.downPressed = true;
             break;
+        case "KeyC":
+            cursor.cPressed = true;
+            setTimeout(1000);
+            console.log('C pressed');
+            break;
         default:
             return;
     }
@@ -83,6 +88,9 @@ function keyUpHandler(e) { /* Handler for keyup events */
             break;
         case "KeyS":
             cursor.downPressed = false;
+            break;
+        case "KeyC":
+            cursor.cPressed = false;
             break;
         default:
             return;

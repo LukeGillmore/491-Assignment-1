@@ -2,10 +2,6 @@ class StateMachine {
 
     constructor() {
         this.stateMap = new Map();
-        // this.stateMap.set(idleStateName, idleStateAnimation);
-        // this.state = this.stateMap.get(idleStateName);
-        // this.seedDJ();
-
     }
 
     getState() {
