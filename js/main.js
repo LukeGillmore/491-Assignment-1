@@ -134,77 +134,6 @@ class BeardGuy {
         }
     }
 }
-//     class MainDude{
-//     constructor(game, spritesheet){
-//         this.x = 400;
-//         this.y = 200;
-//         this.speed = 100;
-//         this.game = game;
-//         this.ctx = game.ctx;
-//         this.stateMachine = new StateMachine('idleDownDJ', new Animation(
-//           AM.getAsset('./img/main_dude.png'), 0, 0, 32, 64, 2, 0.5, 2, true));
-//       this.stateMachine.addState('idleDownDJ', new Animation(
-//         AM.getAsset('./img/main_dude.png'), 0, 0, 32, 64, 2, 0.5, 2, true));
-//       this.stateMachine.addState('idleLeftDJ', new Animation(
-//         AM.getAsset('./img/main_dude.png'), 0 ,64, 32, 64, 2, 0.5, 2, true));
-//       this.stateMachine.addState('idleUpDJ', new Animation(
-//         AM.getAsset('./img/main_dude.png'), 0, 128, 32, 64, 2, 0.5, 2, true));
-//       this.stateMachine.addState('idleRightDJ', new Animation(
-//         AM.getAsset('./img/main_dude.png'), 0, 192, 32, 64, 2, 0.5, 2, true));
-//       this.stateMachine.addState('runDownDJ', new Animation(
-//         AM.getAsset('./img/main_dude.png'), 0, 256, 32, 64, 2, 0.167, 2, true));
-//       this.stateMachine.addState('runLeftDJ', new Animation(
-//         AM.getAsset('./img/main_dude.png'), 0 ,320, 32, 64, 6, 0.167, 6, true));
-//       this.stateMachine.addState('runUpDJ', new Animation(
-//         AM.getAsset('./img/main_dude.png'), 0 ,384, 32, 64, 2, 0.167, 2, true));
-//       this.stateMachine.addState('runRightDJ', new Animation(
-//         AM.getAsset('./img/main_dude.png'), 0, 448, 32, 64, 6, 0.167, 6, true));
-//       this.stateMachine.addState('attackDownDJ', new Animation(
-//         AM.getAsset('./img/main_dude.png'), 0, 512, 32, 64, 5, 0.2, 5, true));
-//       this.stateMachine.addState('attackLeftDJ', new Animation(
-//         AM.getAsset('./img/main_dude.png'), 0, 576, 32, 64, 4, 0.25, 4, true));
-//       this.stateMachine.addState('attackUpDJ', new Animation(
-//         AM.getAsset('./img/main_dude.png'), 0, 640, 32, 64, 6, 0.167, 6, true));
-//       this.stateMachine.addState('attackRightDJ', new Animation(
-//         AM.getAsset('./img/main_dude.png'), 0, 704, 32, 64, 4, 0.25, 4, true));
-//     }
-
-//     draw(ctx){
-//       if(cursor.rightPressed){
-//         this.stateMachine.setState('runRightDJ');
-//           this.stateMachine.draw(this.game.clockTick, ctx, this.x, this.y, 1);
-//       } else if(cursor.leftPressed) {
-//         this.stateMachine.setState('runLeftDJ');
-//           this.stateMachine.draw(this.game.clockTick, ctx, this.x, this.y, 1);
-//       } else if(cursor.upPressed){
-//         this.stateMachine.setState('runUpDJ');
-//         this.stateMachine.draw(this.game.clockTick, ctx, this.x, this.y, 1);
-//       } else if(cursor.downPressed){
-//         this.stateMachine.setState('runDownDJ');
-//         this.stateMachine.draw(this.game.clockTick, ctx, this.x, this.y, 1);
-//       } else {
-//         this.stateMachine.setState('idleDownDJ');
-//         this.stateMachine.draw(this.game.clockTick, ctx, this.x, this.y, 1);
-//         }
-//     }
-
-//     update() {
-       
-//         if (cursor.rightPressed) {
-//             this.x += this.game.clockTick * this.speed;
-//         } else if (cursor.leftPressed) {
-//             this.x -= this.game.clockTick * this.speed;
-//         }
-//         if (cursor.upPressed) {
-//             this.y -= this.game.clockTick * this.speed;
-//         } else if (cursor.downPressed && this.y >= 0) {
-//             this.y += this.game.clockTick * this.speed;
-//         }
-//         if (this.x > 800) {
-//             this.x = -32;
-//         }
-//     }
-// }
 
 class Skeleton{
     constructor(game, spriteSheet){
@@ -263,33 +192,49 @@ class Skeleton{
         }       
     }
     draw(ctx){
-       this.stateMachine.draw(this.game.clockTick, ctx, this.x, this.y);
+       this.stateMachine.draw(this.game.clockTick, ctx, this.x, this.y, 0.5);
     }
 }
 
-class Bird{
-    constructor(game, spriteSheet){
-        this.game = game;
-        this.animation = new Animation(spriteSheet, 0, 0, 160, 180, 14, 0.08, 14, true, 1);
-        this.x = 100;
-        this.y = 50;
-        this.stateMachine = new StateMachine();
-        this.stateMachine.addState('fly', 
-        new Animation(AM.getAsset('./img/bird.png'), 0, 0, 160, 180, 14, 0.08, 14, true, 1));
-    }
-    update(){
-        this.stateMachine.setState('fly');
-        this.x -= this.game.clockTick * this.speed;
-        console.log('bird man');
+class FlyingBird {
+  constructor(game, spriteSheet, startX, startY, scale) {
+    this.animation = new Animation(
+      spriteSheet,0,0, 190, 126, 6, 0.167, 6, true,.5);
+    this.x = startX;
+    this.y = startY;
+    this.speed = 80;
+    this.game = game;
+    this.ctx = game.ctx;
+    this.scale = scale;
+  }
 
-        if(this.x < 0){
-            this.x = 850;
-        }
-    }
-    draw(ctx){
-        this.stateMachine.draw(this.game.clockTick, ctx, this.x, this.y);
-        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
-    }
+  draw(ctx) {
+   
+    this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, this.scale);
+
+    
+  }
+
+  update() {
+    //   let px = this.x * 4 * Math.cos(( -0.5 + Math.PI/360) % Math.PI * 2);
+    //   let py = this.y * 4 * Math.sin(( -0.5 + Math.PI/360) % Math.PI * 2);
+    if (this.x > 800) {
+        this.x = -10;
+        this.y = 0;
+      }
+
+    if(this.x > 200 & this.x < 480){
+        this.x += this.game.clockTick * this.speed;
+        this.y += this.game.clockTick * this.speed; 
+        // this.x = px;
+        // this.y= py;
+    } else if (this.x > 400) {
+        this.x += this.game.clockTick * this.speed;
+        this.y -= this.game.clockTick * this.speed; 
+        
+    } else 
+    this.x += this.game.clockTick * this.speed;  
+  }
 }
 
 class Background{
@@ -311,7 +256,7 @@ AM.queueDownload("./img/background.png");
 AM.queueDownload("./img/beardguy2.png");
 // AM.queueDownload('./img/main_dude.png');
 AM.queueDownload('./img/skeleton2.png');
-AM.queueDownload('./img/bird.png');
+AM.queueDownload('./img/flyingBird.png');
 
 AM.downloadAll(function() {
   var canvas = document.getElementById("gameWorld");
@@ -324,9 +269,20 @@ AM.downloadAll(function() {
   gameEngine.addEntity(new Background(gameEngine, AM.getAsset('./img/background.png')));
   gameEngine.addEntity(new Frog(gameEngine, AM.getAsset("./img/mikethefrog2.png")));
   gameEngine.addEntity(new BeardGuy(gameEngine, AM.getAsset("./img/beardguy2.png")));
-//   gameEngine.addEntity(new MainDude(gameEngine, AM.getAsset('/img/main_dude.png')));
   gameEngine.addEntity(new Skeleton(gameEngine,AM.getAsset('./img/skeleton2.png')));
-  gameEngine.addEntity(new Bird(gameEngine, AM.getAsset('./img/bird.png')));
+  gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -10, 0, 0.2));
+  gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -25, 0, 0.3));
+//   gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -40, 0, 0.1));
+  gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -55, 0, 0.3));
+  gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -60, 0, 0.333));
+//   gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -75, 0, 0.4));
+//   gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -80, 0, 0.2));
+  gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -95, 0, 0.12));
+//   gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -115, 0, 0.25));
+  gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -125, 0, 0.23));
+//   gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -135, 0, 0.22));
+  gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -145, 0, 0.26));
+  gameEngine.addEntity(new FlyingBird(gameEngine, AM.getAsset('./img/flyingBird.png'), -160, 0, 0.2));
 
 
   console.log("All Done!");
